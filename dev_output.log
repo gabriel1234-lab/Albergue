@@ -24,3 +24,9 @@
  GET /booking/register?beds=B2 200 in 102ms (next.js: 58ms, application-code: 44ms)
  GET /admin/login 200 in 141ms (next.js: 27ms, application-code: 114ms)
  GET /admin 200 in 104ms (next.js: 42ms, application-code: 62ms)
+✓ Compiled in 2.7s
+ GET / 200 in 2.1s (next.js: 1484ms, application-code: 655ms)
+ GET /booking 200 in 171ms (next.js: 63ms, application-code: 108ms)
+ GET /booking/register?beds=B2 200 in 84ms (next.js: 43ms, application-code: 42ms)
+ GET /admin/login 200 in 321ms (next.js: 25ms, application-code: 296ms)
+ GET /admin 200 in 107ms (next.js: 43ms, application-code: 64ms)

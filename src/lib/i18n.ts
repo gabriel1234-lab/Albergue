@@ -19,6 +19,10 @@ export const translations: Record<Language, any> = {
     home: 'Início',
     reserve: 'Reservar',
     tips: 'Dicas',
+    check_in: 'Check-in',
+    check_out: 'Check-out',
+    guests_label: 'Hóspedes',
+    search_btn: 'Buscar',
   },
   en: {
     hero_title: 'Your Santa Teresa Adventure Starts Here',
@@ -38,6 +42,10 @@ export const translations: Record<Language, any> = {
     home: 'Home',
     reserve: 'Book',
     tips: 'Tips',
+    check_in: 'Check-in',
+    check_out: 'Check-out',
+    guests_label: 'Guests',
+    search_btn: 'Search',
   },
   fr: {
     hero_title: 'Votre aventure à Santa Teresa commence ici',
@@ -57,6 +65,10 @@ export const translations: Record<Language, any> = {
     home: 'Accueil',
     reserve: 'Réserver',
     tips: 'Conseils',
+    check_in: 'Arrivée',
+    check_out: 'Départ',
+    guests_label: 'Voyageurs',
+    search_btn: 'Rechercher',
   },
   de: {
     hero_title: 'Dein Abenteuer in Santa Teresa beginnt hier',
@@ -76,6 +88,10 @@ export const translations: Record<Language, any> = {
     home: 'Startseite',
     reserve: 'Buchen',
     tips: 'Tipps',
+    check_in: 'Anreise',
+    check_out: 'Abreise',
+    guests_label: 'Gäste',
+    search_btn: 'Suchen',
   },
   zh: {
     hero_title: '您的圣特雷莎冒险从这里开始',
@@ -95,5 +111,9 @@ export const translations: Record<Language, any> = {
     home: '首页',
     reserve: '预订',
     tips: '建议',
+    check_in: '入住',
+    check_out: '退房',
+    guests_label: '入住人数',
+    search_btn: '搜索',
   },
 };
