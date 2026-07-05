@@ -29,8 +29,11 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
-          &copy; {new Date().getFullYear()} Hostel Santa Teresa. Todos os direitos reservados.
+        <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-sm">
+          <div>&copy; {new Date().getFullYear()} Hostel Santa Teresa. Todos os direitos reservados.</div>
+          <a href="/admin/login" className="hover:text-white transition-colors">
+            fazer login de administrador
+          </a>
         </div>
       </div>
     </footer>
