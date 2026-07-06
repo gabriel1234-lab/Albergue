@@ -4,8 +4,10 @@ import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { calculatePrice } from '@/lib/pricing';
 import { Shield, CreditCard, CheckCircle } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 const RegistrationForm = () => {
+  const { t } = useLanguage();
   const searchParams = useSearchParams();
   const beds = searchParams.get('beds')?.split(',') || [];
   const [step, setStep] = useState(1);
@@ -22,7 +24,7 @@ const RegistrationForm = () => {
 
   const pricing = calculatePrice({
     bedCount: beds.length,
-    isFullRoom: false, // Simplificação para o MVP
+    isFullRoom: false,
     days: 1,
     isHighSeason: false
   });
@@ -39,11 +41,11 @@ const RegistrationForm = () => {
         <div className="bg-green-100 text-green-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
           <CheckCircle size={40} />
         </div>
-        <h1 className="text-3xl font-bold mb-4">Reserva Confirmada!</h1>
+        <h1 className="text-3xl font-bold mb-4">{t('confirmed_title')}</h1>
         <p className="text-gray-600 mb-8">
-          Enviamos os detalhes para o seu e-mail. Obrigado por escolher o Hostel Santa Teresa.
+          {t('confirmed_desc')}
         </p>
-        <a href="/" className="bg-hostel-blue text-white px-8 py-3 rounded-full font-bold">Voltar para o Início</a>
+        <a href="/" className="bg-hostel-blue text-white px-8 py-3 rounded-full font-bold">{t('back_home')}</a>
       </div>
     );
   }
@@ -53,7 +55,7 @@ const RegistrationForm = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2">
           <h1 className="text-3xl font-bold mb-8">
-            {step === 1 ? 'Dados dos Hóspedes' : 'Termos e Pagamento'}
+            {step === 1 ? t('guest_data') : t('terms_payment')}
           </h1>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -61,33 +63,33 @@ const RegistrationForm = () => {
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="md:col-span-2">
-                    <label className="block text-sm font-medium mb-2">Nome Completo</label>
+                    <label className="block text-sm font-medium mb-2">{t('full_name')}</label>
                     <input required type="text" className="w-full border-gray-300 rounded-lg p-3 border"
                       onChange={e => setFormData({...formData, nome: e.target.value})}/>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">CPF</label>
+                    <label className="block text-sm font-medium mb-2">{t('cpf')}</label>
                     <input required type="text" className="w-full border-gray-300 rounded-lg p-3 border" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Identidade (RG)</label>
+                    <label className="block text-sm font-medium mb-2">{t('identity')}</label>
                     <input required type="text" className="w-full border-gray-300 rounded-lg p-3 border" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Cadastro de Turismo</label>
+                    <label className="block text-sm font-medium mb-2">{t('tourism_id')}</label>
                     <input required type="text" className="w-full border-gray-300 rounded-lg p-3 border" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Filiação</label>
+                    <label className="block text-sm font-medium mb-2">{t('parentage')}</label>
                     <input required type="text" className="w-full border-gray-300 rounded-lg p-3 border" />
                   </div>
                   <div className="md:col-span-2">
-                    <label className="block text-sm font-medium mb-2">Endereço Completo</label>
+                    <label className="block text-sm font-medium mb-2">{t('address_label')}</label>
                     <input required type="text" className="w-full border-gray-300 rounded-lg p-3 border" />
                   </div>
                 </div>
                 <button type="submit" className="w-full bg-hostel-red text-white py-4 rounded-xl font-bold text-lg">
-                  Prosseguir para Pagamento
+                  {t('proceed_payment')}
                 </button>
               </>
             )}
@@ -97,31 +99,31 @@ const RegistrationForm = () => {
                 <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
                   <h3 className="font-bold mb-4 flex items-center gap-2">
                     <Shield size={20} className="text-hostel-blue" />
-                    Termos de Uso e Políticas
+                    {t('terms_title')}
                   </h3>
                   <div className="text-sm text-gray-600 h-40 overflow-y-auto mb-4 p-2 bg-white border rounded">
-                    <p className="mb-2 font-bold uppercase">Regras do Hostel:</p>
+                    <p className="mb-2 font-bold uppercase">{t('hostel_rules')}</p>
                     <ul className="list-disc ml-4 space-y-1">
-                      <li>Não é permitido pets.</li>
-                      <li>Não é permitido bebidas alcoólicas ou drogas.</li>
-                      <li>Menores de idade apenas com responsável legal.</li>
-                      <li>Check-in: 14h | Check-out: 12h.</li>
-                      <li>Cancelamento em cima da hora gera taxa.</li>
+                      <li>{t('no_pets')}</li>
+                      <li>{t('no_alcohol')}</li>
+                      <li>{t('minors')}</li>
+                      <li>{t('times')}</li>
+                      <li>{t('cancellation')}</li>
                     </ul>
                   </div>
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input type="checkbox" required checked={agreed} onChange={e => setAgreed(e.target.checked)} className="w-5 h-5" />
-                    <span className="text-sm font-medium">Li e concordo com os termos acima</span>
+                    <span className="text-sm font-medium">{t('agree_terms')}</span>
                   </label>
                 </div>
 
                 <div className="bg-white p-6 rounded-xl border border-gray-200">
                   <h3 className="font-bold mb-4 flex items-center gap-2">
                     <CreditCard size={20} className="text-hostel-blue" />
-                    Pagamento Online
+                    {t('online_payment')}
                   </h3>
                   <div className="grid grid-cols-1 gap-4">
-                    <input placeholder="Número do Cartão" className="w-full border-gray-300 rounded-lg p-3 border" />
+                    <input placeholder={t('card_number')} className="w-full border-gray-300 rounded-lg p-3 border" />
                     <div className="grid grid-cols-2 gap-4">
                       <input placeholder="MM/AA" className="w-full border-gray-300 rounded-lg p-3 border" />
                       <input placeholder="CVV" className="w-full border-gray-300 rounded-lg p-3 border" />
@@ -130,33 +132,32 @@ const RegistrationForm = () => {
                 </div>
 
                 <button type="submit" className="w-full bg-hostel-blue text-white py-4 rounded-xl font-bold text-lg">
-                  Finalizar Pagamento (R$ {pricing.total})
+                  {t('finish_payment')} (R$ {pricing.total})
                 </button>
               </div>
             )}
           </form>
         </div>
 
-        {/* Order Summary */}
         <div className="lg:col-span-1">
           <div className="bg-white border border-gray-200 rounded-2xl p-6 sticky top-24">
-            <h3 className="font-bold text-xl mb-6 border-b pb-4">Resumo da Reserva</h3>
+            <h3 className="font-bold text-xl mb-6 border-b pb-4">{t('order_summary')}</h3>
             <div className="space-y-4 mb-6">
               <div className="flex justify-between text-gray-600">
-                <span>{beds.length} Cama(s)</span>
+                <span>{beds.length} {t('beds_selected')}</span>
                 <span>R$ {pricing.subtotal}</span>
               </div>
               <div className="flex justify-between text-green-600 font-medium">
-                <span>Descontos</span>
+                <span>{t('discounts')}</span>
                 <span>- R$ {pricing.discount}</span>
               </div>
               <div className="border-t pt-4 flex justify-between font-bold text-2xl text-hostel-blue">
-                <span>Total</span>
+                <span>{t('total')}</span>
                 <span>R$ {pricing.total}</span>
               </div>
             </div>
             <p className="text-xs text-gray-400 text-center">
-              Pagamento processado de forma segura.
+              {t('secure_payment')}
             </p>
           </div>
         </div>
@@ -166,8 +167,9 @@ const RegistrationForm = () => {
 };
 
 export default function RegisterPage() {
+  const { t } = useLanguage();
   return (
-    <Suspense fallback={<div>Carregando...</div>}>
+    <Suspense fallback={<div>{t('loading')}</div>}>
       <RegistrationForm />
     </Suspense>
   );
