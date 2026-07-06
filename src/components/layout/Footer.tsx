@@ -1,9 +1,12 @@
 'use client';
 
 import { useLanguage } from '@/context/LanguageContext';
+import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
 
 const Footer = () => {
   const { t } = useLanguage();
+  const { isAdmin, logout } = useAuth();
 
   return (
     <footer className="bg-gray-900 text-white py-12">
@@ -37,9 +40,18 @@ const Footer = () => {
         </div>
         <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-sm">
           <div>&copy; {new Date().getFullYear()} Hostel Santa Teresa. {t('rights')}</div>
-          <a href="/admin/login" className="hover:text-white transition-colors">
-            {t('admin_login')}
-          </a>
+          {isAdmin ? (
+            <button
+              onClick={logout}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              {t('logout')}
+            </button>
+          ) : (
+            <Link href="/admin/login" className="hover:text-white transition-colors">
+              {t('admin_login')}
+            </Link>
+          )}
         </div>
       </div>
     </footer>
