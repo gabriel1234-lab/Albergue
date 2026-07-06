@@ -150,6 +150,8 @@ export const translations: Record<Language, any> = {
     admin_actions: 'Ações Administrativas',
     save: 'Salvar',
     available: 'Disponível',
+    assign_room: 'Atribuir Quarto',
+    staff_id: 'ID do Funcionário',
   },
   en: {
     hero_title: 'Live the Bohemian Soul of Santa Teresa',
@@ -300,6 +302,8 @@ export const translations: Record<Language, any> = {
     admin_actions: 'Admin Actions',
     save: 'Save',
     available: 'Available',
+    assign_room: 'Assign Room',
+    staff_id: 'Staff ID',
   },
   fr: {
     hero_title: 'Vivez l\'âme bohème de Santa Teresa',
@@ -450,6 +454,8 @@ export const translations: Record<Language, any> = {
     admin_actions: 'Actions d\'administration',
     save: 'Enregistrer',
     available: 'Disponible',
+    assign_room: 'Assigner chambre',
+    staff_id: 'ID employé',
   },
   de: {
     hero_title: 'Lebe die böhmische Seele von Santa Teresa',
@@ -600,6 +606,8 @@ export const translations: Record<Language, any> = {
     admin_actions: 'Admin-Aktionen',
     save: 'Speichern',
     available: 'Verfügbar',
+    assign_room: 'Zimmer zuweisen',
+    staff_id: 'Mitarbeiter-ID',
   },
   zh: {
     hero_title: '感受圣特雷莎的波西米亚灵魂',
@@ -750,5 +758,7 @@ export const translations: Record<Language, any> = {
     admin_actions: '管理操作',
     save: '保存',
     available: '有空位',
+    assign_room: '分配房间',
+    staff_id: '员工ID',
   },
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, X, Globe, Plus } from 'lucide-react';
+import { Menu, X, Globe, Plus, Users } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
@@ -28,13 +28,22 @@ const Header = () => {
             <Link href="/recommendations" className="text-gray-700 hover:text-hostel-blue font-medium">{t('tips')}</Link>
 
             {isAdmin && (
-              <Link
-                href="/admin/rooms/create"
-                className="p-2 bg-hostel-blue text-white rounded-full hover:bg-opacity-90 transition-all shadow-md"
-                title="Criar Quarto"
-              >
-                <Plus size={20} />
-              </Link>
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/admin/employees"
+                  className="p-2 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-all shadow-sm"
+                  title={t('manage_team')}
+                >
+                  <Users size={20} />
+                </Link>
+                <Link
+                  href="/admin/rooms/create"
+                  className="p-2 bg-hostel-blue text-white rounded-full hover:bg-opacity-90 transition-all shadow-md"
+                  title={t('new_room')}
+                >
+                  <Plus size={20} />
+                </Link>
+              </div>
             )}
 
             <div className="relative flex items-center gap-2 cursor-pointer group">
@@ -58,9 +67,14 @@ const Header = () => {
 
           <div className="md:hidden flex items-center gap-4">
             {isAdmin && (
-              <Link href="/admin/rooms/create" className="p-2 bg-hostel-blue text-white rounded-full">
-                <Plus size={20} />
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link href="/admin/employees" className="p-2 bg-gray-100 text-gray-600 rounded-full">
+                  <Users size={20} />
+                </Link>
+                <Link href="/admin/rooms/create" className="p-2 bg-hostel-blue text-white rounded-full">
+                  <Plus size={20} />
+                </Link>
+              </div>
             )}
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-700">
               {isMenuOpen ? <X size={28} /> : <Menu size={28} />}

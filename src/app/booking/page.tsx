@@ -208,14 +208,28 @@ const BookingPage = () => {
              </div>
 
              <form onSubmit={handleAdminSave} className="p-8 space-y-6">
-               <div>
-                 <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">{t('edit_price')}</label>
-                 <input
-                   type="number"
-                   className="w-full border-2 border-gray-100 rounded-2xl p-4 text-2xl font-black text-hostel-blue focus:border-hostel-blue outline-none transition-colors"
-                   value={editingRoom.price}
-                   onChange={e => setEditingRoom({...editingRoom, price: parseInt(e.target.value)})}
-                 />
+               <div className="grid grid-cols-2 gap-4">
+                 <div>
+                   <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">{t('edit_price')}</label>
+                   <input
+                     type="number"
+                     className="w-full border-2 border-gray-100 rounded-2xl p-4 text-xl font-black text-hostel-blue focus:border-hostel-blue outline-none transition-colors"
+                     value={editingRoom.price}
+                     onChange={e => setEditingRoom({...editingRoom, price: parseInt(e.target.value)})}
+                   />
+                 </div>
+                 <div>
+                   <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">{t('gender')}</label>
+                   <select
+                     className="w-full border-2 border-gray-100 rounded-2xl p-4 text-sm font-bold text-gray-900 focus:border-hostel-blue outline-none bg-white"
+                     value={editingRoom.gender}
+                     onChange={e => setEditingRoom({...editingRoom, gender: e.target.value})}
+                   >
+                     <option value="misto">{t('mixed')}</option>
+                     <option value="feminino">{t('female')}</option>
+                     <option value="masculino">{t('male')}</option>
+                   </select>
+                 </div>
                </div>
 
                <div>
