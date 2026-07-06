@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import { Language } from '@/lib/i18n';
-import LiveCounter from '@/components/LiveCounter';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,9 +20,6 @@ const Header = () => {
             <Link href="/" className="text-2xl font-bold text-hostel-blue">
               Hostel<span className="text-hostel-red">SantaTeresa</span>
             </Link>
-            <div className="hidden lg:block">
-              <LiveCounter />
-            </div>
           </div>
 
           <nav className="hidden md:flex space-x-8 items-center">
