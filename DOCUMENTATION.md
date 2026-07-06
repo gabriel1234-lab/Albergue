@@ -14,21 +14,21 @@ graph TD
     Guest[Hóspede]
     Admin[Administrador]
 
-    subgraph "Sistema de Reservas (Público)"
+    subgraph "Interface do Hóspede"
         UC1(Pesquisar Disponibilidade)
         UC2(Realizar Reserva)
         UC3(Trocar Idioma)
         UC4(Visualizar Recomendações)
-        UC10(Visualizar Galeria de Fotos)
+        UC10(Visualizar Galeria)
     end
 
-    subgraph "Sistema de Gestão (Privado)"
+    subgraph "Painel Administrativo"
         UC5(Fazer Login)
         UC9(Visualizar Dashboard)
-        UC6(Gerenciar/Criar Quartos)
+        UC6(Gerenciar Quartos)
         UC7(Gerenciar Preços)
         UC8(Gerenciar Funcionários)
-        UC11(Visualizar Reservas)
+        UC11(Gerenciar Reservas)
     end
 
     Guest --> UC1
@@ -43,6 +43,13 @@ graph TD
     Admin --> UC7
     Admin --> UC8
     Admin --> UC11
+
+    %% Relacionamentos de Inclusão (Simulados no diagrama)
+    UC9 -.->|include| UC5
+    UC6 -.->|include| UC5
+    UC7 -.->|include| UC5
+    UC8 -.->|include| UC5
+    UC11 -.->|include| UC5
 ```
 
 ## 3. Requisitos do Sistema
@@ -52,39 +59,37 @@ graph TD
 - **RF02**: O sistema deve suportar 5 idiomas: Português, Inglês, Francês, Alemão e Mandarim.
 - **RF03**: O sistema deve calcular o preço da reserva dinamicamente com base em regras de negócio.
 - **RF04**: O sistema deve possuir uma área administrativa protegida por login.
-- **RF05**: O administrador deve poder gerenciar e **criar novos quartos** (especificando número, camas, gênero e banheiro).
-- **RF06**: O sistema deve exibir recomendações turísticas locais de Santa Teresa.
-- **RF07**: O sistema deve exibir uma galeria de fotos do bairro e do hostel.
+- **RF05**: O administrador deve poder gerenciar e criar novos quartos.
+- **RF06**: O administrador deve poder configurar multiplicadores de preços para diferentes temporadas.
+- **RF07**: O administrador deve poder gerenciar a lista de funcionários.
+- **RF08**: O administrador deve poder visualizar e gerenciar as reservas realizadas.
 
 ### 3.2 Requisitos Não-Funcionais (RNF)
 - **RNF01**: A interface deve ser totalmente responsiva (Mobile-first).
-- **RNF02**: O sistema deve ser desenvolvido utilizando Next.js para garantir performance e SEO.
-- **RNF03**: As transições de idioma devem ocorrer sem o recarregamento completo da página (SPA).
-- **RNF04**: O design deve seguir a estética "Alma Boêmia" com a paleta de cores definida.
+- **RNF02**: O sistema deve garantir a persistência da sessão administrativa (localStorage).
+- **RNF03**: As transições de idioma devem ocorrer sem o recarregamento completo da página.
+- **RNF04**: O design deve seguir a estética "Alma Boêmia".
 
 ## 4. Regras de Negócio (RN)
 
-- **RN01 (Inventário)**: O hostel possui um total fixo de 20 quartos e 230 leitos (expansível via painel admin).
-- **RN02 (Preço Base)**: A tarifa base é de R$ 80,00 por leito por dia.
-- **RN03 (Sazonalidade)**: Durante a alta temporada, aplica-se um acréscimo de 50% sobre o valor total.
-- **RN04 (Desconto de Grupo)**:
-  - Reservas de 5 a 9 leitos recebem 5% de desconto.
-  - Reservas de 10 ou mais leitos recebem 10% de desconto.
-- **RN05 (Desconto de Quarto Inteiro)**: Se o cliente reservar todos os leitos de um quarto, recebe um desconto adicional de 15% (acumulativo com outros descontos).
+- **RN01 (Preço Base)**: A tarifa base é de R$ 80,00 por leito por dia.
+- **RN02 (Sazonalidade)**: Acréscimo de 50% em alta temporada (Dez-Mar).
+- **RN03 (Desconto de Grupo)**:
+  - 5 a 9 leitos: 5% de desconto.
+  - 10+ leitos: 10% de desconto.
+- **RN04 (Quarto Inteiro)**: 15% de desconto adicional se todos os leitos forem reservados.
 
 ## 5. Autenticação Admin
-O sistema utiliza um `AuthContext` para gerenciar a sessão do administrador.
-- **Senha Padrão**: `admin123`
-- Ao logar, o administrador é redirecionado para a Home, onde um botão `+` aparece no Header para criação de novos quartos.
+- **Senha**: `admin123`
+- Ao logar, o botão `+` aparece no topo para atalhos de criação.
+- O link no rodapé alterna dinamicamente entre "Login" e "Sair".
 
 ## 6. Stack Tecnológica
-- **Frontend**: Next.js 16 (App Router)
-- **Linguagem**: TypeScript
+- **Framework**: Next.js 16 (React 19)
 - **Estilização**: Tailwind CSS 4
 - **Animações**: Framer Motion
-- **Ícones**: Lucide React
+- **Context**: LanguageProvider & AuthProvider
 
 ## 7. Como Executar
 1. `npm install`
-2. `npm run dev` (Desenvolvimento)
-3. `npm run build` (Produção)
+2. `npm run dev`
