@@ -11,26 +11,38 @@ O projeto é uma aplicação web moderna focada na experiência do usuário e na
 
 ```mermaid
 graph TD
-    subgraph "Sistema de Reservas"
+    Guest[Hóspede]
+    Admin[Administrador]
+
+    subgraph "Sistema de Reservas (Público)"
         UC1(Pesquisar Disponibilidade)
         UC2(Realizar Reserva)
         UC3(Trocar Idioma)
         UC4(Visualizar Recomendações)
+        UC10(Visualizar Galeria de Fotos)
+    end
+
+    subgraph "Sistema de Gestão (Privado)"
         UC5(Fazer Login)
+        UC9(Visualizar Dashboard)
         UC6(Gerenciar Quartos)
         UC7(Gerenciar Preços)
         UC8(Gerenciar Funcionários)
+        UC11(Visualizar Reservas)
     end
 
-    Guest[Hóspede] --> UC1
+    Guest --> UC1
     Guest --> UC2
     Guest --> UC3
     Guest --> UC4
+    Guest --> UC10
 
-    Admin[Administrador] --> UC5
+    Admin --> UC5
+    Admin --> UC9
     Admin --> UC6
     Admin --> UC7
     Admin --> UC8
+    Admin --> UC11
 ```
 
 ## 3. Requisitos do Sistema
@@ -42,6 +54,7 @@ graph TD
 - **RF04**: O sistema deve possuir uma área administrativa protegida por login.
 - **RF05**: O administrador deve poder gerenciar o inventário de quartos e leitos.
 - **RF06**: O sistema deve exibir recomendações turísticas locais de Santa Teresa.
+- **RF07**: O sistema deve exibir uma galeria de fotos do bairro e do hostel.
 
 ### 3.2 Requisitos Não-Funcionais (RNF)
 - **RNF01**: A interface deve ser totalmente responsiva (Mobile-first).

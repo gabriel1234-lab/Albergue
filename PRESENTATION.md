@@ -25,15 +25,10 @@ O objetivo foi criar uma plataforma de reservas para um hostel de grande porte e
 
 ---
 
-## 📋 Requisitos do Sistema
-- **RF**: Suporte a 5 idiomas, busca de disponibilidade, motor de preços dinâmico e painel administrativo.
-- **RNF**: Interface responsiva, transições instantâneas (SPA) e identidade visual "Alma Boêmia".
-
----
-
-## 🌍 Globalização (i18n)
-O site é totalmente traduzido em **5 idiomas**:
-- 🇧🇷 Português | 🇺🇸 Inglês | 🇫🇷 Francês | 🇩🇪 Alemão | 🇨🇳 Mandarim
+## 📋 Requisitos e Casos de Uso
+- **Público**: Busca de disponibilidade, Galeria, Recomendações e Reservas.
+- **Gestão**: Painel administrativo, Controle de leitos, Precificação sazonal e Equipe.
+- **Multilíngue**: 5 idiomas (PT, EN, FR, DE, ZH).
 
 ---
 
@@ -55,7 +50,8 @@ O site é totalmente traduzido em **5 idiomas**:
 
 ## 🔐 Gestão Administrativa
 - Dashboard para controle de **230 leitos**.
-- Gestão de funcionários e calendários de preços.
+- Visão em tempo real de check-ins e receita.
+- Gestão completa de inventário e pessoal.
 
 ---
 
