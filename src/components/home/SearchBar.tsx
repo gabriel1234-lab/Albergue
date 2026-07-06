@@ -28,7 +28,7 @@ const SearchBar = () => {
         <div className="flex flex-col p-3 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer border-b md:border-b-0 md:border-r border-gray-100">
           <label className="text-xs font-bold text-gray-500 uppercase flex items-center gap-2 mb-1">
             <Calendar size={14} className="text-hostel-red" />
-            {t('check_in') || 'Check-in'}
+            {t('check_in')}
           </label>
           <input
             type="date"
@@ -40,7 +40,7 @@ const SearchBar = () => {
         <div className="flex flex-col p-3 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer border-b md:border-b-0 md:border-r border-gray-100">
           <label className="text-xs font-bold text-gray-500 uppercase flex items-center gap-2 mb-1">
             <Calendar size={14} className="text-hostel-red" />
-            {t('check_out') || 'Check-out'}
+            {t('check_out')}
           </label>
           <input
             type="date"
@@ -52,13 +52,13 @@ const SearchBar = () => {
         <div className="flex flex-col p-3 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer">
           <label className="text-xs font-bold text-gray-500 uppercase flex items-center gap-2 mb-1">
             <Users size={14} className="text-hostel-red" />
-            {t('guests_label') || 'Hóspedes'}
+            {t('guests_label')}
           </label>
           <select
             className="bg-transparent border-none focus:ring-0 text-gray-900 font-semibold w-full cursor-pointer appearance-none"
             onChange={(e) => setSearchData({...searchData, guests: e.target.value})}
           >
-            {[1,2,3,4,5,6,7,8].map(n => <option key={n} value={n}>{n} {n === 1 ? 'Pessoa' : 'Pessoas'}</option>)}
+            {[1,2,3,4,5,6,7,8].map(n => <option key={n} value={n}>{n} {n === 1 ? t('person') : t('people')}</option>)}
           </select>
         </div>
 
@@ -68,7 +68,7 @@ const SearchBar = () => {
             className="w-full h-full bg-hostel-blue hover:bg-opacity-90 text-white rounded-xl font-bold flex items-center justify-center gap-2 transition-all py-4 md:py-0 shadow-lg"
           >
             <Search size={20} />
-            {t('search_btn') || 'Buscar'}
+            {t('search_btn')}
           </button>
         </div>
       </form>

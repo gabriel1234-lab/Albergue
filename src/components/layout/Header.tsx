@@ -58,11 +58,11 @@ const Header = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 p-4 space-y-4">
-          <Link href="/" className="block text-gray-700 font-medium">Início</Link>
-          <Link href="/booking" className="block text-gray-700 font-medium">Reservar</Link>
-          <Link href="/recommendations" className="block text-gray-700 font-medium">Dicas</Link>
+          <Link href="/" className="block text-gray-700 font-medium">{t('home')}</Link>
+          <Link href="/booking" className="block text-gray-700 font-medium">{t('reserve')}</Link>
+          <Link href="/recommendations" className="block text-gray-700 font-medium">{t('tips')}</Link>
           <Link href="/booking" className="block bg-hostel-red text-white px-6 py-2 rounded-full font-bold text-center">
-            Reserve Já
+            {t('reserve_cta')}
           </Link>
         </div>
       )}

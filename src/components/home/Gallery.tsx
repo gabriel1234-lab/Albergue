@@ -10,27 +10,27 @@ const Gallery = () => {
     {
       src: '/images/Bondinho-de-Santa-Teresa-Rio-de-Janeiro-shutterstock_521319055.jpg',
       alt: 'Bondinho de Santa Teresa',
-      title: 'O Icônico Bondinho'
+      title: t('gal_bondinho')
     },
     {
       src: '/images/o-que-fazer-em-santa-teresa-rj-escadaria-selaron.webp',
       alt: 'Escadaria Selarón',
-      title: 'Escadaria Selarón'
+      title: t('gal_selaron')
     },
     {
       src: '/images/images.jpg',
       alt: 'Largo do Guimarães',
-      title: 'Largo do Guimarães'
+      title: t('gal_guimaraes')
     },
     {
       src: '/images/largo-do-curvelo-santa-teresa-rio-de-janeiro-lapa-bondinho-1_640x640+fill_ffffff.png',
       alt: 'Largo do Curvelo',
-      title: 'Largo do Curvelo'
+      title: t('gal_curvelo')
     },
     {
       src: '/images/Centro-Historico-de-Santa-Teresa_nx170224002-1.jpg',
       alt: 'Centro Histórico',
-      title: 'Centro Histórico'
+      title: t('gal_centro')
     }
   ];
 
@@ -39,7 +39,7 @@ const Gallery = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            {t('gallery_title').split('Santa Teresa')[0]} <span className="text-hostel-red">Santa Teresa</span>
+            {t('gallery_title')} <span className="text-hostel-red">Santa Teresa</span>
           </h2>
           <p className="text-lg text-gray-600">
             {t('gallery_subtitle')}

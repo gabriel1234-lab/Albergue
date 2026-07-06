@@ -7,10 +7,10 @@ const Location = () => {
   const { t } = useLanguage();
 
   const recommendations = [
-    { title: 'Bondinho de Santa Teresa', type: 'Turismo', desc: 'O passeio mais icônico do bairro, passando pelos Arcos da Lapa.', image: '/images/Bondinho-de-Santa-Teresa-Rio-de-Janeiro-shutterstock_521319055.jpg' },
-    { title: 'Escadaria Selarón', type: 'Cultura', desc: 'Mosaicos coloridos famosos mundialmente, ligando a Lapa a Santa Teresa.', image: '/images/o-que-fazer-em-santa-teresa-rj-escadaria-selaron.webp' },
-    { title: 'Largo do Guimarães', type: 'Gastronomia', desc: 'O coração do bairro, com a famosa igreja azul e os melhores bares.', image: '/images/images.jpg' },
-    { title: 'Largo do Curvelo', type: 'Vista', desc: 'Ponto de parada obrigatório com vista para o centro e o bonde.', image: '/images/largo-do-curvelo-santa-teresa-rio-de-janeiro-lapa-bondinho-1_640x640+fill_ffffff.png' },
+    { title: t('rec_bondinho_title'), type: 'Turismo', desc: t('rec_bondinho_desc'), image: '/images/Bondinho-de-Santa-Teresa-Rio-de-Janeiro-shutterstock_521319055.jpg' },
+    { title: t('rec_selaron_title'), type: 'Cultura', desc: t('rec_selaron_desc'), image: '/images/o-que-fazer-em-santa-teresa-rj-escadaria-selaron.webp' },
+    { title: t('rec_guimaraes_title'), type: 'Gastronomia', desc: t('rec_guimaraes_desc'), image: '/images/images.jpg' },
+    { title: t('rec_curvelo_title'), type: 'Vista', desc: t('rec_curvelo_desc'), image: '/images/largo-do-curvelo-santa-teresa-rio-de-janeiro-lapa-bondinho-1_640x640+fill_ffffff.png' },
   ];
 
   return (
@@ -19,7 +19,7 @@ const Location = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              {t('location_title').split('Santa Teresa')[0]} <span className="text-hostel-red">Santa Teresa</span>
+              {t('location_title')} <span className="text-hostel-red">Santa Teresa</span>
             </h2>
             <p className="text-lg text-gray-600 mb-8 italic">
               {t('location_quote')}

@@ -14,7 +14,7 @@ const Features = () => {
     { icon: <Tv className="w-8 h-8 text-hostel-blue" />, name: t('common_area') },
     { icon: <TreePine className="w-8 h-8 text-hostel-blue" />, name: t('garden') },
     { icon: <Utensils className="w-8 h-8 text-hostel-blue" />, name: t('kitchen') },
-    { icon: <Users className="w-8 h-8 text-hostel-blue" />, name: 'Ambiente Jovem' },
+    { icon: <Users className="w-8 h-8 text-hostel-blue" />, name: t('young_vibe') },
   ];
 
   return (
