@@ -25,7 +25,7 @@ graph TD
     subgraph "Sistema de Gestão (Privado)"
         UC5(Fazer Login)
         UC9(Visualizar Dashboard)
-        UC6(Gerenciar Quartos)
+        UC6(Gerenciar/Criar Quartos)
         UC7(Gerenciar Preços)
         UC8(Gerenciar Funcionários)
         UC11(Visualizar Reservas)
@@ -52,7 +52,7 @@ graph TD
 - **RF02**: O sistema deve suportar 5 idiomas: Português, Inglês, Francês, Alemão e Mandarim.
 - **RF03**: O sistema deve calcular o preço da reserva dinamicamente com base em regras de negócio.
 - **RF04**: O sistema deve possuir uma área administrativa protegida por login.
-- **RF05**: O administrador deve poder gerenciar o inventário de quartos e leitos.
+- **RF05**: O administrador deve poder gerenciar e **criar novos quartos** (especificando número, camas, gênero e banheiro).
 - **RF06**: O sistema deve exibir recomendações turísticas locais de Santa Teresa.
 - **RF07**: O sistema deve exibir uma galeria de fotos do bairro e do hostel.
 
@@ -64,7 +64,7 @@ graph TD
 
 ## 4. Regras de Negócio (RN)
 
-- **RN01 (Inventário)**: O hostel possui um total fixo de 20 quartos e 230 leitos.
+- **RN01 (Inventário)**: O hostel possui um total fixo de 20 quartos e 230 leitos (expansível via painel admin).
 - **RN02 (Preço Base)**: A tarifa base é de R$ 80,00 por leito por dia.
 - **RN03 (Sazonalidade)**: Durante a alta temporada, aplica-se um acréscimo de 50% sobre o valor total.
 - **RN04 (Desconto de Grupo)**:
@@ -72,22 +72,17 @@ graph TD
   - Reservas de 10 ou mais leitos recebem 10% de desconto.
 - **RN05 (Desconto de Quarto Inteiro)**: Se o cliente reservar todos os leitos de um quarto, recebe um desconto adicional de 15% (acumulativo com outros descontos).
 
-## 5. Stack Tecnológica
+## 5. Autenticação Admin
+O sistema utiliza um `AuthContext` para gerenciar a sessão do administrador.
+- **Senha Padrão**: `admin123`
+- Ao logar, o administrador é redirecionado para a Home, onde um botão `+` aparece no Header para criação de novos quartos.
+
+## 6. Stack Tecnológica
 - **Frontend**: Next.js 16 (App Router)
 - **Linguagem**: TypeScript
 - **Estilização**: Tailwind CSS 4
 - **Animações**: Framer Motion
 - **Ícones**: Lucide React
-
-## 6. Arquitetura de Pastas
-```text
-src/
-├── app/            # Rotas e Páginas
-├── components/     # Componentes React
-├── context/        # Estado Global (Idioma)
-├── lib/            # Lógica (Precificação, i18n)
-└── types/          # Tipagem TypeScript
-```
 
 ## 7. Como Executar
 1. `npm install`

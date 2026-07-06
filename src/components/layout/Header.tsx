@@ -1,15 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, Plus } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
+import { useAuth } from '@/context/AuthContext';
 import { Language } from '@/lib/i18n';
 import LiveCounter from '@/components/LiveCounter';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const { isAdmin } = useAuth();
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -28,6 +30,17 @@ const Header = () => {
             <Link href="/" className="text-gray-700 hover:text-hostel-blue font-medium">{t('home')}</Link>
             <Link href="/booking" className="text-gray-700 hover:text-hostel-blue font-medium">{t('reserve')}</Link>
             <Link href="/recommendations" className="text-gray-700 hover:text-hostel-blue font-medium">{t('tips')}</Link>
+
+            {isAdmin && (
+              <Link
+                href="/admin/rooms/create"
+                className="p-2 bg-hostel-blue text-white rounded-full hover:bg-opacity-90 transition-all shadow-md"
+                title="Criar Quarto"
+              >
+                <Plus size={20} />
+              </Link>
+            )}
+
             <div className="relative flex items-center gap-2 cursor-pointer group">
               <Globe className="w-5 h-5 text-gray-500" />
               <select
@@ -47,7 +60,12 @@ const Header = () => {
             </Link>
           </nav>
 
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-4">
+            {isAdmin && (
+              <Link href="/admin/rooms/create" className="p-2 bg-hostel-blue text-white rounded-full">
+                <Plus size={20} />
+              </Link>
+            )}
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-700">
               {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
