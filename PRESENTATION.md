@@ -19,53 +19,50 @@ O objetivo foi criar uma plataforma de reservas para um hostel de grande porte e
 ---
 
 ## 🛠️ Stack Tecnológica
-- **Next.js 16 (App Router)**: Alta performance e SEO.
-- **Tailwind CSS 4**: Estilização ultrarrápida e moderna.
-- **React 19**: O que há de mais novo no ecossistema.
-- **Framer Motion**: Experiência de uso fluida com animações.
+- **Next.js 16 (App Router)**: Performance e SEO.
+- **Tailwind CSS 4**: Estilização moderna.
+- **Framer Motion**: Experiência fluida.
 
 ---
 
-## 🌍 Diferencial: Globalização (i18n)
+## 📋 Requisitos do Sistema
+- **RF**: Suporte a 5 idiomas, busca de disponibilidade, motor de preços dinâmico e painel administrativo.
+- **RNF**: Interface responsiva, transições instantâneas (SPA) e identidade visual "Alma Boêmia".
+
+---
+
+## 🌍 Globalização (i18n)
 O site é totalmente traduzido em **5 idiomas**:
-1. 🇧🇷 Português
-2. 🇺🇸 Inglês
-3. 🇫🇷 Francês
-4. 🇩🇪 Alemão
-5. 🇨🇳 Mandarim
-
-*Lógica de tradução centralizada para fácil manutenção.*
+- 🇧🇷 Português | 🇺🇸 Inglês | 🇫🇷 Francês | 🇩🇪 Alemão | 🇨🇳 Mandarim
 
 ---
 
-## 💰 Motor de Precificação Dinâmica
-Algoritmo inteligente para maximizar a ocupação:
-- **Alta Temporada**: Ajuste automático de +50%.
-- **Descontos Progressivos**: 5% a 10% para grupos.
-- **Incentivo de Quarto Cheio**: 15% de desconto extra.
+## 💰 Regras de Negócio & Precificação
+- **Base**: R$ 80/leito.
+- **Alta Temporada**: +50%.
+- **Descontos**:
+  - Grupos (5-10+): 5% a 10% off.
+  - Quarto Inteiro: 15% off extra.
 
 ---
 
 ## 🎨 Design e UX
-- **Identidade Visual**: Uso de cores quentes e ícones modernos.
-- **Imersão Local**: Fotos reais dos pontos turísticos de Santa Teresa.
-- **Responsividade**: Experiência perfeita no Mobile e Desktop.
+- **Identidade**: Cores vibrantes (Vermelho e Azul).
+- **Imersão**: Fotos reais de Santa Teresa (Bondinho, Selarón).
+- **Mobile-First**: Acesso fácil de qualquer lugar.
 
 ---
 
-## 🔐 Área Administrativa
-Sistema robusto para gestão interna:
-- Controle de **230 leitos**.
-- Gerenciamento de funcionários.
-- Ajuste de preços e calendário sazonal.
+## 🔐 Gestão Administrativa
+- Dashboard para controle de **230 leitos**.
+- Gestão de funcionários e calendários de preços.
 
 ---
 
 ## 📈 Conclusão
-O Hostel Santa Teresa agora possui uma ferramenta que une a **tradição cultural** do bairro com a **modernidade tecnológica**, pronta para escala e atendimento global.
+O projeto une **cultura carioca** e **tecnologia de ponta**, oferecendo uma solução completa para hóspedes e administradores.
 
 ---
 
 # Obrigado!
-**Dúvidas?**
 *Documentação completa disponível em DOCUMENTATION.md*

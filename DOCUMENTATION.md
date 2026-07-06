@@ -1,79 +1,82 @@
 # Documentação: Hostel Santa Teresa
 
-Esta documentação detalha a arquitetura, as tecnologias e as funcionalidades principais do sistema de gerenciamento e reserva do Hostel Santa Teresa.
+Esta documentação detalha a arquitetura, as tecnologias, os requisitos e as regras de negócio do sistema de gerenciamento e reserva do Hostel Santa Teresa.
 
 ---
 
 ## 1. Visão Geral
 O projeto é uma aplicação web moderna focada na experiência do usuário e na eficiência administrativa. O objetivo é facilitar reservas de leitos em Santa Teresa, Rio de Janeiro, oferecendo suporte multilíngue e um motor de precificação dinâmico.
 
-## 2. Stack Tecnológica
-- **Frontend**: [Next.js 16](https://nextjs.org/) (App Router)
-- **Linguagem**: [TypeScript](https://www.typescriptlang.org/)
-- **Estilização**: [Tailwind CSS 4](https://tailwindcss.com/) (Padrão de design moderno e utilitário)
-- **Animações**: [Framer Motion](https://www.framer.com/motion/)
-- **Ícones**: [Lucide React](https://lucide.dev/)
-- **Runtime**: Node.js / Bun
+## 2. Diagramas de Caso de Uso
 
-## 3. Arquitetura de Pastas
-```text
-src/
-├── app/            # Rotas e Páginas (Next.js App Router)
-├── components/     # Componentes React reutilizáveis
-│   ├── home/       # Componentes específicos da Landing Page
-│   ├── layout/     # Header, Footer, etc.
-│   └── ui/         # Componentes básicos (Botões, Inputs)
-├── context/        # Gerenciamento de estado (Idioma, Autenticação)
-├── lib/            # Lógica de negócio (i18n, Precificação, Utils)
-└── types/          # Definições de tipos TypeScript
+```mermaid
+graph TD
+    subgraph "Sistema de Reservas"
+        UC1(Pesquisar Disponibilidade)
+        UC2(Realizar Reserva)
+        UC3(Trocar Idioma)
+        UC4(Visualizar Recomendações)
+        UC5(Fazer Login)
+        UC6(Gerenciar Quartos)
+        UC7(Gerenciar Preços)
+        UC8(Gerenciar Funcionários)
+    end
+
+    Guest[Hóspede] --> UC1
+    Guest --> UC2
+    Guest --> UC3
+    Guest --> UC4
+
+    Admin[Administrador] --> UC5
+    Admin --> UC6
+    Admin --> UC7
+    Admin --> UC8
 ```
 
-## 4. Funcionalidades Principais
+## 3. Requisitos do Sistema
 
-### 4.1 Sistema Multilíngue (i18n)
-O sistema utiliza um `LanguageContext` customizado que gerencia 5 idiomas:
-- Português (PT)
-- Inglês (EN)
-- Francês (FR)
-- Alemão (DE)
-- Mandarim (ZH)
+### 3.1 Requisitos Funcionais (RF)
+- **RF01**: O sistema deve permitir a busca de leitos por data de check-in, check-out e número de hóspedes.
+- **RF02**: O sistema deve suportar 5 idiomas: Português, Inglês, Francês, Alemão e Mandarim.
+- **RF03**: O sistema deve calcular o preço da reserva dinamicamente com base em regras de negócio.
+- **RF04**: O sistema deve possuir uma área administrativa protegida por login.
+- **RF05**: O administrador deve poder gerenciar o inventário de quartos e leitos.
+- **RF06**: O sistema deve exibir recomendações turísticas locais de Santa Teresa.
 
-**Lógica**: As traduções são armazenadas em `src/lib/i18n.ts` em um dicionário tipado. O componente `Header` permite a troca em tempo real sem recarregar a página.
+### 3.2 Requisitos Não-Funcionais (RNF)
+- **RNF01**: A interface deve ser totalmente responsiva (Mobile-first).
+- **RNF02**: O sistema deve ser desenvolvido utilizando Next.js para garantir performance e SEO.
+- **RNF03**: As transições de idioma devem ocorrer sem o recarregamento completo da página (SPA).
+- **RNF04**: O design deve seguir a estética "Alma Boêmia" com a paleta de cores definida.
 
-### 4.2 Motor de Precificação Dinâmica
-Localizado em `src/lib/pricing.ts`, o motor calcula valores com base em:
-1. **Base**: R$ 80,00 por leito/dia.
-2. **Sazonalidade**: Acréscimo de 50% em alta temporada.
-3. **Desconto de Grupo**:
-   - 5 a 9 leitos: 5% de desconto.
-   - 10+ leitos: 10% de desconto.
-4. **Reserva de Quarto Inteiro**: 15% de desconto acumulativo.
+## 4. Regras de Negócio (RN)
 
-### 4.3 Dashboard Administrativo
-Área protegida para gestão de:
-- **Quartos**: Controle de 20 quartos e 230 leitos.
-- **Preços**: Ajuste de tarifas sazonais.
-- **Funcionários**: Cadastro e permissões.
+- **RN01 (Inventário)**: O hostel possui um total fixo de 20 quartos e 230 leitos.
+- **RN02 (Preço Base)**: A tarifa base é de R$ 80,00 por leito por dia.
+- **RN03 (Sazonalidade)**: Durante a alta temporada, aplica-se um acréscimo de 50% sobre o valor total.
+- **RN04 (Desconto de Grupo)**:
+  - Reservas de 5 a 9 leitos recebem 5% de desconto.
+  - Reservas de 10 ou mais leitos recebem 10% de desconto.
+- **RN05 (Desconto de Quarto Inteiro)**: Se o cliente reservar todos os leitos de um quarto, recebe um desconto adicional de 15% (acumulativo com outros descontos).
 
-## 5. Design e Identidade
-O design segue o tema **"Alma Boêmia"**, utilizando uma paleta de cores vibrante:
-- **Vermelho (#FF6B6B)**: Energia e paixão.
-- **Azul (#0056B3)**: Confiança e profissionalismo.
-- **Imagens**: Integração de pontos turísticos reais (Bondinho, Escadaria Selarón) para imersão cultural.
+## 5. Stack Tecnológica
+- **Frontend**: Next.js 16 (App Router)
+- **Linguagem**: TypeScript
+- **Estilização**: Tailwind CSS 4
+- **Animações**: Framer Motion
+- **Ícones**: Lucide React
 
----
+## 6. Arquitetura de Pastas
+```text
+src/
+├── app/            # Rotas e Páginas
+├── components/     # Componentes React
+├── context/        # Estado Global (Idioma)
+├── lib/            # Lógica (Precificação, i18n)
+└── types/          # Tipagem TypeScript
+```
 
-## 6. Como Executar o Projeto
-
-1. Instale as dependências:
-   ```bash
-   npm install
-   ```
-2. Inicie o servidor de desenvolvimento:
-   ```bash
-   npm run dev
-   ```
-3. Gere a build de produção:
-   ```bash
-   npm run build
-   ```
+## 7. Como Executar
+1. `npm install`
+2. `npm run dev` (Desenvolvimento)
+3. `npm run build` (Produção)
