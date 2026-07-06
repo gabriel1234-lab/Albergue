@@ -1,16 +1,16 @@
 'use client';
 
 import { useLanguage } from '@/context/LanguageContext';
-import { MapPin, Utensils, Camera, Map as MapIcon } from 'lucide-react';
+import { MapPin, Map as MapIcon } from 'lucide-react';
 
 const Location = () => {
   const { t } = useLanguage();
 
   const recommendations = [
-    { title: 'Bonde de Santa Teresa', type: 'Turismo', desc: 'O passeio mais icônico do bairro.' },
-    { title: 'Escadaria Selarón', type: 'Cultura', desc: 'Mosaicos coloridos famosos mundialmente.' },
-    { title: 'Parque das Ruínas', type: 'Vista', desc: 'A melhor vista panorâmica do Rio.' },
-    { title: 'Largo do Guimarães', type: 'Gastronomia', desc: 'Bares e restaurantes charmosos.' },
+    { title: 'Bondinho de Santa Teresa', type: 'Turismo', desc: 'O passeio mais icônico do bairro, passando pelos Arcos da Lapa.', image: '/images/Bondinho-de-Santa-Teresa-Rio-de-Janeiro-shutterstock_521319055.jpg' },
+    { title: 'Escadaria Selarón', type: 'Cultura', desc: 'Mosaicos coloridos famosos mundialmente, ligando a Lapa a Santa Teresa.', image: '/images/o-que-fazer-em-santa-teresa-rj-escadaria-selaron.webp' },
+    { title: 'Largo do Guimarães', type: 'Gastronomia', desc: 'O coração do bairro, com a famosa igreja azul e os melhores bares.', image: '/images/images.jpg' },
+    { title: 'Largo do Curvelo', type: 'Vista', desc: 'Ponto de parada obrigatório com vista para o centro e o bonde.', image: '/images/largo-do-curvelo-santa-teresa-rio-de-janeiro-lapa-bondinho-1_640x640+fill_ffffff.png' },
   ];
 
   return (
@@ -19,22 +19,27 @@ const Location = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              O Charme de <span className="text-hostel-red">Santa Teresa</span>
+              {t('location_title').split('Santa Teresa')[0]} <span className="text-hostel-red">Santa Teresa</span>
             </h2>
+            <p className="text-lg text-gray-600 mb-8 italic">
+              {t('location_quote')}
+            </p>
             <p className="text-lg text-gray-600 mb-8">
-              Localizado em uma área de fácil acesso, nosso hostel é o ponto de partida ideal para explorar a alma boêmia do Rio de Janeiro.
-              Ruas de paralelepípedo, casarões históricos e uma atmosfera vibrante esperam por você.
+              {t('location_desc')}
             </p>
 
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {recommendations.map((item, index) => (
-                <div key={index} className="flex gap-4 p-4 bg-white rounded-lg shadow-sm">
-                  <div className="bg-blue-50 p-2 rounded-full h-fit">
-                    <MapPin className="w-5 h-5 text-hostel-blue" />
+                <div key={index} className="group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow">
+                  <div className="h-32 overflow-hidden">
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900">{item.title}</h4>
-                    <p className="text-sm text-gray-500">{item.desc}</p>
+                  <div className="p-4">
+                    <h4 className="font-bold text-gray-900 flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-hostel-red" />
+                      {item.title}
+                    </h4>
+                    <p className="text-xs text-gray-500 mt-1">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -48,7 +53,7 @@ const Location = () => {
                  <div className="bg-hostel-red p-3 rounded-full animate-bounce shadow-lg">
                    <MapIcon className="text-white w-8 h-8" />
                  </div>
-                 <span className="bg-white px-3 py-1 rounded shadow-md mt-2 font-bold text-hostel-blue">Estamos aqui!</span>
+                 <span className="bg-white px-3 py-1 rounded shadow-md mt-2 font-bold text-hostel-blue">{t('here')}</span>
                </div>
             </div>
           </div>

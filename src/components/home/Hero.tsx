@@ -19,8 +19,8 @@ const Hero = () => {
 
   return (
     <section className="relative h-[80vh] flex items-center justify-center bg-gray-100 overflow-hidden">
-      {/* Background Image Placeholder */}
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1555854817-5b2260756631?q=80&w=2070')] bg-cover bg-center">
+      {/* Background Image */}
+      <div className="absolute inset-0 bg-[url('/images/Bondinho-de-Santa-Teresa-Rio-de-Janeiro-shutterstock_521319055.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
@@ -66,16 +66,16 @@ const Hero = () => {
             >
               <X size={20} />
             </button>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">🔥 Últimas Vagas!</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">{t('last_spots')}</h3>
             <p className="text-gray-600 mb-4">
-              Temos 230 camas, mas elas esgotam rápido em Santa Teresa. Não fique de fora!
+              {t('popup_text')}
             </p>
             <Link
               href="/booking"
               className="block w-full bg-hostel-blue text-white text-center py-3 rounded-lg font-bold hover:bg-opacity-90"
               onClick={() => setShowPopup(false)}
             >
-              RESERVAR AGORA
+              {t('reserve').toUpperCase()}
             </Link>
           </motion.div>
         )}

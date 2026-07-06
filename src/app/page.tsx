@@ -2,6 +2,7 @@ import Hero from "@/components/home/Hero";
 import SearchBar from "@/components/home/SearchBar";
 import Features from "@/components/home/Features";
 import Location from "@/components/home/Location";
+import Gallery from "@/components/home/Gallery";
 import Reviews from "@/components/home/Reviews";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <SearchBar />
       <Features />
       <Location />
+      <Gallery />
       <Reviews />
     </>
   );
