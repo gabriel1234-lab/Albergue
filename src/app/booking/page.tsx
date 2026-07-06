@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
-import { Filter, Bed, Bath, Users, CheckCircle2, Lock, Edit3, Trash2, X } from 'lucide-react';
+import { Filter, Bed, Bath, Users, CheckCircle2, Lock, Edit3, Trash2, X, Calendar } from 'lucide-react';
 import Link from 'next/link';
 
 // Mock data updated with empty beds and prices
@@ -20,7 +20,10 @@ const BookingPage = () => {
   const { isAdmin } = useAuth();
   const [rooms, setRooms] = useState(INITIAL_ROOMS);
   const [filter, setFilter] = useState({ type: 'all', gender: 'all', bathroom: 'all' });
-  const [selectedBeds, setSelectedBeds] = useState<string[]>([]);
+
+  // Selection State for Guests
+  const [dates, setDates] = useState({ checkIn: '', checkOut: '' });
+  const [selections, setSelections] = useState<Record<number, number>>({}); // roomId -> count
 
   // Admin Editing State
   const [editingRoom, setEditingRoom] = useState<any>(null);
@@ -32,21 +35,29 @@ const BookingPage = () => {
     return true;
   });
 
-  const toggleBedSelection = (roomId: number) => {
-    if (isAdmin) {
-      const room = rooms.find(r => r.id === roomId);
-      setEditingRoom({...room});
-      return;
-    }
-
+  const updateSelection = (roomId: number, delta: number) => {
     const room = rooms.find(r => r.id === roomId);
-    if (!room || room.emptyBeds === 0) return;
+    if (!room) return;
 
-    const id = `R${roomId}`;
-    setSelectedBeds(prev =>
-      prev.includes(id) ? prev.filter(b => b !== id) : [...prev, id]
-    );
+    setSelections(prev => {
+      const current = prev[roomId] || 0;
+      const next = Math.max(0, Math.min(room.emptyBeds, current + delta));
+      if (next === 0) {
+        const { [roomId]: _, ...rest } = prev;
+        return rest;
+      }
+      return { ...prev, [roomId]: next };
+    });
   };
+
+  const totalBeds = useMemo(() => Object.values(selections).reduce((a, b) => a + b, 0), [selections]);
+
+  const totalPrice = useMemo(() => {
+    return Object.entries(selections).reduce((acc, [id, count]) => {
+      const room = rooms.find(r => r.id === parseInt(id));
+      return acc + (room ? room.price * count : 0);
+    }, 0);
+  }, [selections, rooms]);
 
   const handleAdminSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,49 +78,82 @@ const BookingPage = () => {
       <h1 className="text-3xl font-bold mb-8">{t('booking_title')}</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <div className="lg:col-span-1 bg-white p-6 rounded-xl border border-gray-200 h-fit sticky top-24">
-          <div className="flex items-center gap-2 mb-6 text-hostel-blue font-bold">
-            <Filter size={20} />
-            <span>{t('filters')}</span>
+        <div className="lg:col-span-1 space-y-6">
+          {/* Date Selection */}
+          <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+             <h3 className="font-bold flex items-center gap-2 text-hostel-red uppercase text-sm tracking-widest">
+               <Calendar size={18} />
+               {t('stay')}
+             </h3>
+             <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 mb-1">{t('check_in')}</label>
+                  <input
+                    type="date"
+                    required
+                    className="w-full border-2 border-gray-100 rounded-xl p-3 focus:border-hostel-blue outline-none"
+                    value={dates.checkIn}
+                    onChange={e => setDates({...dates, checkIn: e.target.value})}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 mb-1">{t('check_out')}</label>
+                  <input
+                    type="date"
+                    required
+                    className="w-full border-2 border-gray-100 rounded-xl p-3 focus:border-hostel-blue outline-none"
+                    value={dates.checkOut}
+                    onChange={e => setDates({...dates, checkOut: e.target.value})}
+                  />
+                </div>
+             </div>
           </div>
 
-          <div className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">{t('room_type')}</label>
-              <select
-                className="w-full border-gray-300 rounded-md shadow-sm focus:border-hostel-blue focus:ring-hostel-blue"
-                onChange={(e) => setFilter({...filter, type: e.target.value})}
-              >
-                <option value="all">{t('all')}</option>
-                <option value="4">{t('beds_4')}</option>
-                <option value="8">{t('beds_8')}</option>
-                <option value="12">{t('beds_12')}</option>
-              </select>
+          {/* Filters */}
+          <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+            <div className="flex items-center gap-2 mb-6 text-hostel-blue font-bold uppercase text-sm tracking-widest">
+              <Filter size={20} />
+              <span>{t('filters')}</span>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">{t('gender')}</label>
-              <select
-                className="w-full border-gray-300 rounded-md shadow-sm focus:border-hostel-blue focus:ring-hostel-blue"
-                onChange={(e) => setFilter({...filter, gender: e.target.value})}
-              >
-                <option value="all">{t('all')}</option>
-                <option value="misto">{t('mixed')}</option>
-                <option value="feminino">{t('female')}</option>
-                <option value="masculino">{t('male')}</option>
-              </select>
-            </div>
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('room_type')}</label>
+                <select
+                  className="w-full border-gray-300 rounded-md shadow-sm focus:border-hostel-blue focus:ring-hostel-blue"
+                  onChange={(e) => setFilter({...filter, type: e.target.value})}
+                >
+                  <option value="all">{t('all')}</option>
+                  <option value="4">{t('beds_4')}</option>
+                  <option value="8">{t('beds_8')}</option>
+                  <option value="12">{t('beds_12')}</option>
+                </select>
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">{t('bathroom')}</label>
-              <select
-                className="w-full border-gray-300 rounded-md shadow-sm focus:border-hostel-blue focus:ring-hostel-blue"
-                onChange={(e) => setFilter({...filter, bathroom: e.target.value})}
-              >
-                <option value="all">{t('indifferent')}</option>
-                <option value="true">{t('yes')}</option>
-                <option value="false">{t('no')}</option>
-              </select>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('gender')}</label>
+                <select
+                  className="w-full border-gray-300 rounded-md shadow-sm focus:border-hostel-blue focus:ring-hostel-blue"
+                  onChange={(e) => setFilter({...filter, gender: e.target.value})}
+                >
+                  <option value="all">{t('all')}</option>
+                  <option value="misto">{t('mixed')}</option>
+                  <option value="feminino">{t('female')}</option>
+                  <option value="masculino">{t('male')}</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('bathroom')}</label>
+                <select
+                  className="w-full border-gray-300 rounded-md shadow-sm focus:border-hostel-blue focus:ring-hostel-blue"
+                  onChange={(e) => setFilter({...filter, bathroom: e.target.value})}
+                >
+                  <option value="all">{t('indifferent')}</option>
+                  <option value="true">{t('yes')}</option>
+                  <option value="false">{t('no')}</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -117,7 +161,7 @@ const BookingPage = () => {
         <div className="lg:col-span-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredRooms.map(room => {
-              const isSelected = selectedBeds.includes(`R${room.id}`);
+              const selectedCount = selections[room.id] || 0;
               const isFull = room.emptyBeds === 0;
               const translatedGender = room.gender === 'misto' ? t('mixed') :
                                      room.gender === 'feminino' ? t('female') :
@@ -126,11 +170,12 @@ const BookingPage = () => {
               return (
                 <div
                   key={room.id}
-                  onClick={() => toggleBedSelection(room.id)}
+                  onClick={() => isAdmin && setEditingRoom({...room})}
                   className={`
-                    relative p-6 rounded-2xl border-2 transition-all cursor-pointer overflow-hidden
+                    relative p-6 rounded-2xl border-2 transition-all overflow-hidden
+                    ${isAdmin ? 'cursor-pointer hover:border-hostel-blue' : ''}
                     ${isFull && !isAdmin ? 'bg-gray-100 border-gray-200 grayscale opacity-60' :
-                      isSelected ? 'border-hostel-red bg-red-50' : 'border-gray-200 hover:border-hostel-blue bg-white shadow-sm hover:shadow-md'}
+                      selectedCount > 0 ? 'border-hostel-red bg-red-50' : 'border-gray-200 bg-white shadow-sm'}
                   `}
                 >
                   {isAdmin && (
@@ -168,23 +213,36 @@ const BookingPage = () => {
                     <span className={`text-xs font-black uppercase tracking-widest ${isFull ? 'text-red-500' : 'text-green-500'}`}>
                       {isFull ? t('rented') : `${room.emptyBeds} ${t('available')}`}
                     </span>
-                    {!isAdmin && !isFull && isSelected && <CheckCircle2 size={20} className="text-hostel-red" />}
-                    {!isAdmin && isFull && <Lock size={18} className="text-gray-400" />}
+
+                    {!isAdmin && !isFull && (
+                      <div className="flex items-center gap-2 bg-gray-50 rounded-lg p-1 border border-gray-100" onClick={e => e.stopPropagation()}>
+                        <button
+                          className="w-8 h-8 rounded bg-white border border-gray-200 flex items-center justify-center font-bold hover:bg-gray-50"
+                          onClick={() => updateSelection(room.id, -1)}
+                        >-</button>
+                        <span className="w-6 text-center font-bold">{selectedCount}</span>
+                        <button
+                          className="w-8 h-8 rounded bg-hostel-blue text-white flex items-center justify-center font-bold hover:bg-opacity-90"
+                          onClick={() => updateSelection(room.id, 1)}
+                        >+</button>
+                      </div>
+                    )}
                   </div>
                 </div>
               );
             })}
           </div>
 
-          {!isAdmin && selectedBeds.length > 0 && (
-            <div className="mt-12 bg-hostel-blue text-white p-6 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-6 shadow-xl animate-in slide-in-from-bottom-4 duration-300">
-              <div>
-                <p className="text-xl font-bold">{selectedBeds.length} {t('beds_selected')}</p>
-                <p className="text-blue-100">{t('discount_notice')}</p>
+          {!isAdmin && totalBeds > 0 && (
+            <div className="mt-12 bg-hostel-blue text-white p-8 rounded-3xl flex flex-col md:flex-row justify-between items-center gap-8 shadow-2xl animate-in slide-in-from-bottom-4 duration-300">
+              <div className="space-y-1 text-center md:text-left">
+                <p className="text-2xl font-black">{totalBeds} {t('beds_selected')}</p>
+                <p className="text-blue-100 font-medium">Total: <span className="text-white text-3xl font-black">R$ {totalPrice}</span> / {t('person').toLowerCase()}</p>
+                {!dates.checkIn || !dates.checkOut ? <p className="text-yellow-300 text-xs font-bold uppercase tracking-widest pt-2">{t('select_dates_notice')}</p> : null}
               </div>
               <Link
-                href={`/booking/register?beds=${selectedBeds.join(',')}`}
-                className="bg-hostel-red text-white px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-lg"
+                href={`/booking/register?beds=${totalBeds}&checkIn=${dates.checkIn}&checkOut=${dates.checkOut}&price=${totalPrice}`}
+                className={`bg-hostel-red text-white px-12 py-5 rounded-2xl font-black text-xl hover:scale-105 transition-all shadow-lg uppercase tracking-wider ${(!dates.checkIn || !dates.checkOut) ? 'opacity-50 pointer-events-none' : ''}`}
               >
                 {t('continue_booking')}
               </Link>

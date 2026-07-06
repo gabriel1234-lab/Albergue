@@ -152,6 +152,10 @@ export const translations: Record<Language, any> = {
     available: 'Disponível',
     assign_room: 'Atribuir Quarto',
     staff_id: 'ID do Funcionário',
+    nights_1: 'Noite',
+    nights_many: 'Noites',
+    stay: 'Estadia',
+    select_dates_notice: 'Selecione as datas para continuar',
   },
   en: {
     hero_title: 'Live the Bohemian Soul of Santa Teresa',
@@ -304,6 +308,10 @@ export const translations: Record<Language, any> = {
     available: 'Available',
     assign_room: 'Assign Room',
     staff_id: 'Staff ID',
+    nights_1: 'Night',
+    nights_many: 'Nights',
+    stay: 'Stay',
+    select_dates_notice: 'Select dates to continue',
   },
   fr: {
     hero_title: 'Vivez l\'âme bohème de Santa Teresa',
@@ -456,6 +464,10 @@ export const translations: Record<Language, any> = {
     available: 'Disponible',
     assign_room: 'Assigner chambre',
     staff_id: 'ID employé',
+    nights_1: 'Nuit',
+    nights_many: 'Nuits',
+    stay: 'Séjour',
+    select_dates_notice: 'Sélectionnez les dates pour continuer',
   },
   de: {
     hero_title: 'Lebe die böhmische Seele von Santa Teresa',
@@ -608,6 +620,10 @@ export const translations: Record<Language, any> = {
     available: 'Verfügbar',
     assign_room: 'Zimmer zuweisen',
     staff_id: 'Mitarbeiter-ID',
+    nights_1: 'Nacht',
+    nights_many: 'Nächte',
+    stay: 'Aufenthalt',
+    select_dates_notice: 'Daten auswählen, um fortzufahren',
   },
   zh: {
     hero_title: '感受圣特雷莎的波西米亚灵魂',
@@ -760,5 +776,9 @@ export const translations: Record<Language, any> = {
     available: '有空位',
     assign_room: '分配房间',
     staff_id: '员工ID',
+    nights_1: '晚',
+    nights_many: '晚',
+    stay: '住宿',
+    select_dates_notice: '选择日期以继续',
   },
 };

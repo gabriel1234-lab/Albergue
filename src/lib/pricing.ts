@@ -3,10 +3,11 @@ export interface BookingParams {
   isFullRoom: boolean;
   days: number;
   isHighSeason: boolean;
+  baseRoomPrice?: number; // Added to support dynamic room prices
 }
 
-export const calculatePrice = ({ bedCount, isFullRoom, days, isHighSeason }: BookingParams) => {
-  const basePrice = 80; // Preço base médio
+export const calculatePrice = ({ bedCount, isFullRoom, days, isHighSeason, baseRoomPrice }: BookingParams) => {
+  const basePrice = baseRoomPrice || 80;
   let total = basePrice * bedCount * days;
 
   // Sazonalidade
